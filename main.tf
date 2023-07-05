@@ -18,6 +18,8 @@ resource "aws_instance" "webserver" {
 
   provisioner "remote-exec" {
     inline = [
+       while [ ! -f /var/lib/cloud/instance/boot-finished ]; do
+    echo "Waiting for cloud-init to finish..."
       "sudo apt update -y",
       "sudo apt install ngnix -y"
     ]
